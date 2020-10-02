@@ -77,7 +77,6 @@ export const PanelEditor: React.FC<PanelEditorProps<MapOptions>> = ({ options, o
       const obj = JSON.parse(reader.result as string) as GeoJSON;
 
       const devicesLocation = parseDeviceLocation(obj);
-      console.log('get it yeah ', devicesLocation);
 
       onOptionsChange({
         ...options,

@@ -55748,7 +55748,6 @@ var PanelEditor = function PanelEditor(_a) {
     reader.onloadend = function () {
       var obj = JSON.parse(reader.result);
       var devicesLocation = Object(_utils_helpers__WEBPACK_IMPORTED_MODULE_8__["parseDeviceLocation"])(obj);
-      console.log('get it yeah ', devicesLocation);
       onOptionsChange(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, options), {
         devicesLocation: devicesLocation
       }));
