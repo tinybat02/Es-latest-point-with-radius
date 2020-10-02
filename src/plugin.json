@@ -1,0 +1,21 @@
+{
+  "type": "panel",
+  "name": "ES Point w Radius",
+  "id": "es-latest-point-with-radius",
+  "dataFormats": ["table"],
+  "info": {
+    "description": "Point with radius",
+    "author": {
+      "name": "Nam Le"
+    },
+    "keywords": ["openlayers", "map", "elasticsearch"],
+    "screenshots": [],
+    "version": "0.0.1",
+    "updated": "%TODAY%"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "6.3.x",
+    "plugins": []
+  }
+}
