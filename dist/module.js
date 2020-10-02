@@ -55526,7 +55526,6 @@ function (_super) {
   }
 
   MainPanel.prototype.componentDidMount = function () {
-    console.log('tink tink ', this.props.data);
     var _a = this.props.options,
         tile_url = _a.tile_url,
         zoom_level = _a.zoom_level,
@@ -55874,23 +55873,13 @@ var processData = function processData(data, devicesLocation) {
   var circleFeatures = [];
   Object.keys(deviceData.distance).map(function (id) {
     var feature = new ol_Feature__WEBPACK_IMPORTED_MODULE_0__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__["default"](devicesLocation[id], deviceData.distance[id]));
-    feature.set('label', "(" + deviceData.rssi[id] + ") " + deviceData.distance[id].toFixed(2));
+    feature.set('label', "(" + deviceData.rssi[id] + ") " + deviceData.distance[id].toFixed(1));
     circleFeatures.push(feature);
-  }); // const circleFeature = new Feature(new Circle(fromLonLat([11.66725, 48.262725]), 4));
-
+  });
   return new ol_layer__WEBPACK_IMPORTED_MODULE_2__["Vector"]({
     source: new ol_source_Vector__WEBPACK_IMPORTED_MODULE_1__["default"]({
       features: circleFeatures
     }),
-    // style: new Style({
-    //   stroke: new Stroke({
-    //     color: 'orange',
-    //     width: 2,
-    //   }),
-    //   fill: new Fill({
-    //     color: 'rgba(255, 255, 255, 0.5)',
-    //   }),
-    // }),
     style: function style(feature) {
       var label = feature.get('label');
       return new ol_style__WEBPACK_IMPORTED_MODULE_3__["Style"]({
