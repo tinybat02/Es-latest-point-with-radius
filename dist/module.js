@@ -55872,9 +55872,21 @@ var processData = function processData(data, devicesLocation) {
   var circleFeatures = [];
   Object.keys(deviceData.distance).map(function (id) {
     var feature = new ol_Feature__WEBPACK_IMPORTED_MODULE_0__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__["default"](devicesLocation[id], deviceData.distance[id]));
-    feature.set('label', "(" + deviceData.rssi[id] + ") " + deviceData.distance[id].toFixed(1));
+    feature.set('label', id + "\n(" + deviceData.rssi[id] + ") " + deviceData.distance[id].toFixed(1));
     circleFeatures.push(feature);
   });
+
+  if (deviceData.longitude) {
+    var predictedPoint = new ol_Feature__WEBPACK_IMPORTED_MODULE_0__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__["default"](Object(ol_proj__WEBPACK_IMPORTED_MODULE_5__["fromLonLat"])([deviceData.longitude, deviceData.latitude]), 0.3));
+    predictedPoint.setStyle(new ol_style__WEBPACK_IMPORTED_MODULE_3__["Style"]({
+      stroke: new ol_style__WEBPACK_IMPORTED_MODULE_3__["Stroke"]({
+        color: '#FFA040',
+        width: 3
+      })
+    }));
+    circleFeatures.push(predictedPoint);
+  }
+
   return new ol_layer__WEBPACK_IMPORTED_MODULE_2__["Vector"]({
     source: new ol_source_Vector__WEBPACK_IMPORTED_MODULE_1__["default"]({
       features: circleFeatures
@@ -55894,7 +55906,7 @@ var processData = function processData(data, devicesLocation) {
             color: '#b7b7b7',
             width: 1
           }),
-          font: '18px',
+          font: '10px/1 sans-serif',
           text: label
         })
       });

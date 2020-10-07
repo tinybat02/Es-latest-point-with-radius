@@ -13,6 +13,8 @@ interface SingleData {
   timestamp: number;
   distance: { [key: string]: number };
   rssi: { [key: string]: number };
+  latitude: number;
+  longitude: number;
 }
 
 export const parseDeviceLocation = (geojson: GeoJSON) => {
@@ -29,10 +31,19 @@ export const processData = (data: SingleData[], devicesLocation: DevicesLocation
   const circleFeatures: Feature[] = [];
   Object.keys(deviceData.distance).map(id => {
     const feature = new Feature(new Circle(devicesLocation[id], deviceData.distance[id]));
-    feature.set('label', `(${deviceData.rssi[id]}) ${deviceData.distance[id].toFixed(1)}`);
+    feature.set('label', `${id}\n(${deviceData.rssi[id]}) ${deviceData.distance[id].toFixed(1)}`);
     circleFeatures.push(feature);
   });
 
+  if (deviceData.longitude) {
+    const predictedPoint = new Feature(new Circle(fromLonLat([deviceData.longitude, deviceData.latitude]), 0.3));
+    predictedPoint.setStyle(
+      new Style({
+        stroke: new Stroke({ color: '#FFA040', width: 3 }),
+      })
+    );
+    circleFeatures.push(predictedPoint);
+  }
   return new VectorLayer({
     source: new VectorSource({
       features: circleFeatures,
@@ -53,7 +64,7 @@ export const processData = (data: SingleData[], devicesLocation: DevicesLocation
             color: '#b7b7b7',
             width: 1,
           }),
-          font: '18px',
+          font: '10px/1 sans-serif',
           text: label,
         }),
       });
