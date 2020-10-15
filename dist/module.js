@@ -55871,9 +55871,11 @@ var processData = function processData(data, devicesLocation) {
   var deviceData = data[0];
   var circleFeatures = [];
   Object.keys(deviceData.distance).map(function (id) {
-    var feature = new ol_Feature__WEBPACK_IMPORTED_MODULE_0__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__["default"](devicesLocation[id], deviceData.distance[id]));
-    feature.set('label', id + "\n(" + deviceData.rssi[id] + ") " + deviceData.distance[id].toFixed(1));
-    circleFeatures.push(feature);
+    if (devicesLocation[id]) {
+      var feature = new ol_Feature__WEBPACK_IMPORTED_MODULE_0__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__["default"](devicesLocation[id], deviceData.distance[id]));
+      feature.set('label', id + "\n(" + deviceData.rssi[id] + ") " + deviceData.distance[id].toFixed(1));
+      circleFeatures.push(feature);
+    }
   });
 
   if (deviceData.longitude) {

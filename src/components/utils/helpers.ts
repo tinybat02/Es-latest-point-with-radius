@@ -30,9 +30,11 @@ export const processData = (data: SingleData[], devicesLocation: DevicesLocation
   const deviceData = data[0];
   const circleFeatures: Feature[] = [];
   Object.keys(deviceData.distance).map(id => {
-    const feature = new Feature(new Circle(devicesLocation[id], deviceData.distance[id]));
-    feature.set('label', `${id}\n(${deviceData.rssi[id]}) ${deviceData.distance[id].toFixed(1)}`);
-    circleFeatures.push(feature);
+    if (devicesLocation[id]) {
+      const feature = new Feature(new Circle(devicesLocation[id], deviceData.distance[id]));
+      feature.set('label', `${id}\n(${deviceData.rssi[id]}) ${deviceData.distance[id].toFixed(1)}`);
+      circleFeatures.push(feature);
+    }
   });
 
   if (deviceData.longitude) {
