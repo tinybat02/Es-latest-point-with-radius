@@ -55848,12 +55848,14 @@ var PanelEditor = function PanelEditor(_a) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseDeviceLocation", function() { return parseDeviceLocation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "processData", function() { return processData; });
-/* harmony import */ var ol_Feature__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ol/Feature */ "../node_modules/ol/Feature.js");
-/* harmony import */ var ol_source_Vector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ol/source/Vector */ "../node_modules/ol/source/Vector.js");
-/* harmony import */ var ol_layer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ol/layer */ "../node_modules/ol/layer.js");
-/* harmony import */ var ol_style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ol/style */ "../node_modules/ol/style.js");
-/* harmony import */ var ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ol/geom/Circle */ "../node_modules/ol/geom/Circle.js");
-/* harmony import */ var ol_proj__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ol/proj */ "../node_modules/ol/proj.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var ol_Feature__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ol/Feature */ "../node_modules/ol/Feature.js");
+/* harmony import */ var ol_source_Vector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ol/source/Vector */ "../node_modules/ol/source/Vector.js");
+/* harmony import */ var ol_layer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ol/layer */ "../node_modules/ol/layer.js");
+/* harmony import */ var ol_style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ol/style */ "../node_modules/ol/style.js");
+/* harmony import */ var ol_geom_Circle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ol/geom/Circle */ "../node_modules/ol/geom/Circle.js");
+/* harmony import */ var ol_proj__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ol/proj */ "../node_modules/ol/proj.js");
+
 
 
 
@@ -55863,7 +55865,7 @@ __webpack_require__.r(__webpack_exports__);
 var parseDeviceLocation = function parseDeviceLocation(geojson) {
   var devicesLocation = {};
   geojson.features.map(function (feature) {
-    devicesLocation[feature.properties.name] = Object(ol_proj__WEBPACK_IMPORTED_MODULE_5__["fromLonLat"])(feature.geometry.coordinates);
+    devicesLocation[feature.properties.name] = Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])(feature.geometry.coordinates);
   });
   return devicesLocation;
 };
@@ -55872,16 +55874,22 @@ var processData = function processData(data, devicesLocation) {
   var circleFeatures = [];
   Object.keys(deviceData.distance).map(function (id) {
     if (devicesLocation[id]) {
-      var feature = new ol_Feature__WEBPACK_IMPORTED_MODULE_0__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__["default"](devicesLocation[id], deviceData.distance[id]));
+      var feature = new ol_Feature__WEBPACK_IMPORTED_MODULE_1__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_5__["default"](devicesLocation[id], deviceData.distance[id]));
       feature.set('label', id + "\n(" + deviceData.rssi[id] + ") " + deviceData.distance[id].toFixed(1));
       circleFeatures.push(feature);
     }
   });
 
   if (deviceData.longitude) {
-    var predictedPoint = new ol_Feature__WEBPACK_IMPORTED_MODULE_0__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_4__["default"](Object(ol_proj__WEBPACK_IMPORTED_MODULE_5__["fromLonLat"])([deviceData.longitude, deviceData.latitude]), 0.3));
-    predictedPoint.setStyle(new ol_style__WEBPACK_IMPORTED_MODULE_3__["Style"]({
-      stroke: new ol_style__WEBPACK_IMPORTED_MODULE_3__["Stroke"]({
+    var radius = 0.3;
+
+    if (deviceData.distance) {
+      radius = Math.min.apply(Math, Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"])(Object.values(deviceData.distance)));
+    }
+
+    var predictedPoint = new ol_Feature__WEBPACK_IMPORTED_MODULE_1__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_5__["default"](Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])([deviceData.longitude, deviceData.latitude]), radius));
+    predictedPoint.setStyle(new ol_style__WEBPACK_IMPORTED_MODULE_4__["Style"]({
+      stroke: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Stroke"]({
         color: '#FFA040',
         width: 3
       })
@@ -55889,22 +55897,22 @@ var processData = function processData(data, devicesLocation) {
     circleFeatures.push(predictedPoint);
   }
 
-  return new ol_layer__WEBPACK_IMPORTED_MODULE_2__["Vector"]({
-    source: new ol_source_Vector__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  return new ol_layer__WEBPACK_IMPORTED_MODULE_3__["Vector"]({
+    source: new ol_source_Vector__WEBPACK_IMPORTED_MODULE_2__["default"]({
       features: circleFeatures
     }),
     style: function style(feature) {
       var label = feature.get('label');
-      return new ol_style__WEBPACK_IMPORTED_MODULE_3__["Style"]({
-        fill: new ol_style__WEBPACK_IMPORTED_MODULE_3__["Fill"]({
+      return new ol_style__WEBPACK_IMPORTED_MODULE_4__["Style"]({
+        fill: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Fill"]({
           color: 'rgba(255, 255, 255, 0.2)'
         }),
-        stroke: new ol_style__WEBPACK_IMPORTED_MODULE_3__["Stroke"]({
+        stroke: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Stroke"]({
           color: '#49A8DE',
           width: 2
         }),
-        text: new ol_style__WEBPACK_IMPORTED_MODULE_3__["Text"]({
-          stroke: new ol_style__WEBPACK_IMPORTED_MODULE_3__["Stroke"]({
+        text: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Text"]({
+          stroke: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Stroke"]({
             color: '#b7b7b7',
             width: 1
           }),

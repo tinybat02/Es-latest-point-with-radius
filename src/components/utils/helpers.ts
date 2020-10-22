@@ -38,7 +38,11 @@ export const processData = (data: SingleData[], devicesLocation: DevicesLocation
   });
 
   if (deviceData.longitude) {
-    const predictedPoint = new Feature(new Circle(fromLonLat([deviceData.longitude, deviceData.latitude]), 0.3));
+    let radius = 0.3;
+    if (deviceData.distance) {
+      radius = Math.min(...Object.values(deviceData.distance));
+    }
+    const predictedPoint = new Feature(new Circle(fromLonLat([deviceData.longitude, deviceData.latitude]), radius));
     predictedPoint.setStyle(
       new Style({
         stroke: new Stroke({ color: '#FFA040', width: 3 }),
