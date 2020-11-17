@@ -11,6 +11,7 @@ export interface GeoJSON {
       IP: string;
       name: string;
       ref: string;
+      id: string;
     };
     geometry: {
       type: string;

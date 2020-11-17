@@ -1,7 +1,7 @@
 import Feature from 'ol/Feature';
 import VectorSource from 'ol/source/Vector';
 import { Vector as VectorLayer } from 'ol/layer';
-import { Style, Fill, /* Text, */ Stroke, Text } from 'ol/style';
+import { Style, Fill, Stroke, Text } from 'ol/style';
 import { FeatureLike } from 'ol/Feature';
 import Circle from 'ol/geom/Circle';
 import { fromLonLat } from 'ol/proj';
@@ -20,7 +20,7 @@ interface SingleData {
 export const parseDeviceLocation = (geojson: GeoJSON) => {
   const devicesLocation: { [key: string]: Coordinate } = {};
   geojson.features.map(feature => {
-    devicesLocation[feature.properties.name] = fromLonLat(feature.geometry.coordinates);
+    devicesLocation[feature.properties.name || feature.properties.id] = fromLonLat(feature.geometry.coordinates);
   });
 
   return devicesLocation;
