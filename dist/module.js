@@ -55865,7 +55865,7 @@ __webpack_require__.r(__webpack_exports__);
 var parseDeviceLocation = function parseDeviceLocation(geojson) {
   var devicesLocation = {};
   geojson.features.map(function (feature) {
-    devicesLocation[feature.properties.name || feature.properties.id] = Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])(feature.geometry.coordinates);
+    devicesLocation[feature.properties.id] = Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])(feature.geometry.coordinates);
   });
   return devicesLocation;
 };
