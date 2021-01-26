@@ -81438,11 +81438,18 @@ var processData = function processData(data, devicesLocation) {
     }
 
     var predictedPoint = new ol_Feature__WEBPACK_IMPORTED_MODULE_1__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_5__["default"](Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])([deviceData.longitude, deviceData.latitude]), radius));
-    predictedPoint.set('label', deviceData.hash_id);
     predictedPoint.setStyle(new ol_style__WEBPACK_IMPORTED_MODULE_4__["Style"]({
       stroke: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Stroke"]({
         color: '#FFA040',
         width: 3
+      }),
+      text: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Text"]({
+        stroke: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Stroke"]({
+          color: '#b7b7b7',
+          width: 1
+        }),
+        font: '10px/1 sans-serif',
+        text: deviceData.hash_id
       })
     }));
     circleFeatures.push(predictedPoint);

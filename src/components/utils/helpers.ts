@@ -43,10 +43,17 @@ export const processData = (data: SingleData[], devicesLocation: DevicesLocation
       radius = Math.min(...Object.values(deviceData.distance));
     }
     const predictedPoint = new Feature(new Circle(fromLonLat([deviceData.longitude, deviceData.latitude]), radius));
-    predictedPoint.set('label', deviceData.hash_id);
     predictedPoint.setStyle(
       new Style({
         stroke: new Stroke({ color: '#FFA040', width: 3 }),
+        text: new Text({
+          stroke: new Stroke({
+            color: '#b7b7b7',
+            width: 1,
+          }),
+          font: '10px/1 sans-serif',
+          text: deviceData.hash_id,
+        }),
       })
     );
     circleFeatures.push(predictedPoint);
