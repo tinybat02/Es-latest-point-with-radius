@@ -81438,6 +81438,7 @@ var processData = function processData(data, devicesLocation) {
     }
 
     var predictedPoint = new ol_Feature__WEBPACK_IMPORTED_MODULE_1__["default"](new ol_geom_Circle__WEBPACK_IMPORTED_MODULE_5__["default"](Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])([deviceData.longitude, deviceData.latitude]), radius));
+    predictedPoint.set('label', deviceData.hash_id);
     predictedPoint.setStyle(new ol_style__WEBPACK_IMPORTED_MODULE_4__["Style"]({
       stroke: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Stroke"]({
         color: '#FFA040',
@@ -81455,7 +81456,7 @@ var processData = function processData(data, devicesLocation) {
       var label = feature.get('label');
       return new ol_style__WEBPACK_IMPORTED_MODULE_4__["Style"]({
         fill: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Fill"]({
-          color: 'rgba(255, 255, 255, 0.2)'
+          color: 'rgba(255, 255, 255, 0.05)'
         }),
         stroke: new ol_style__WEBPACK_IMPORTED_MODULE_4__["Stroke"]({
           color: '#49A8DE',

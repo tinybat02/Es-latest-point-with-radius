@@ -43,6 +43,7 @@ export const processData = (data: SingleData[], devicesLocation: DevicesLocation
       radius = Math.min(...Object.values(deviceData.distance));
     }
     const predictedPoint = new Feature(new Circle(fromLonLat([deviceData.longitude, deviceData.latitude]), radius));
+    predictedPoint.set('label', deviceData.hash_id);
     predictedPoint.setStyle(
       new Style({
         stroke: new Stroke({ color: '#FFA040', width: 3 }),
@@ -59,7 +60,7 @@ export const processData = (data: SingleData[], devicesLocation: DevicesLocation
       const label = feature.get('label');
       return new Style({
         fill: new Fill({
-          color: 'rgba(255, 255, 255, 0.2)',
+          color: 'rgba(255, 255, 255, 0.05)',
         }),
         stroke: new Stroke({
           color: '#49A8DE',
