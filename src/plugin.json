@@ -9,6 +9,10 @@
       "name": "Nam Le"
     },
     "keywords": ["openlayers", "map", "elasticsearch"],
+    "logos": {
+      "small": "img/radius.svg",
+      "large": "img/radius.svg"
+    },
     "screenshots": [],
     "version": "0.0.1",
     "updated": "%TODAY%"
