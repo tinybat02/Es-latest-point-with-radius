@@ -81274,7 +81274,7 @@ var PanelEditor = function PanelEditor(_a) {
   };
 
   var handleSubmit = function handleSubmit() {
-    onOptionsChange(inputs);
+    onOptionsChange(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, options), inputs));
   };
 
   var onDrop = react__WEBPACK_IMPORTED_MODULE_1___default.a.useCallback(function (acceptedFiles) {
@@ -81316,6 +81316,11 @@ var PanelEditor = function PanelEditor(_a) {
     reader.onloadend = function () {
       var obj = JSON.parse(reader.result);
       var devicesLocation = Object(_utils_helpers__WEBPACK_IMPORTED_MODULE_8__["parseDeviceLocation"])(obj);
+      setInputs(function (prev) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, prev), {
+          devicesLocation: devicesLocation
+        });
+      });
       onOptionsChange(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, options), {
         devicesLocation: devicesLocation
       }));
@@ -81433,7 +81438,7 @@ __webpack_require__.r(__webpack_exports__);
 var parseDeviceLocation = function parseDeviceLocation(geojson) {
   var devicesLocation = {};
   geojson.features.map(function (feature) {
-    devicesLocation[feature.properties.id] = Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])(feature.geometry.coordinates);
+    devicesLocation[feature.properties.id.replace(':', '').toLowerCase()] = Object(ol_proj__WEBPACK_IMPORTED_MODULE_6__["fromLonLat"])(feature.geometry.coordinates);
   });
   return devicesLocation;
 };

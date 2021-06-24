@@ -20,7 +20,7 @@ interface SingleData {
 export const parseDeviceLocation = (geojson: GeoJSON) => {
   const devicesLocation: { [key: string]: Coordinate } = {};
   geojson.features.map(feature => {
-    devicesLocation[feature.properties.id] = fromLonLat(feature.geometry.coordinates);
+    devicesLocation[feature.properties.id.replace(':', '').toLowerCase()] = fromLonLat(feature.geometry.coordinates);
   });
 
   return devicesLocation;

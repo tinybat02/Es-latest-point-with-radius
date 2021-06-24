@@ -39,7 +39,7 @@ export const PanelEditor: React.FC<PanelEditorProps<MapOptions>> = ({ options, o
   };
 
   const handleSubmit = () => {
-    onOptionsChange(inputs);
+    onOptionsChange({ ...options, ...inputs });
   };
 
   const onDrop = React.useCallback(
@@ -78,6 +78,7 @@ export const PanelEditor: React.FC<PanelEditorProps<MapOptions>> = ({ options, o
 
       const devicesLocation = parseDeviceLocation(obj);
 
+      setInputs(prev => ({ ...prev, devicesLocation }));
       onOptionsChange({
         ...options,
         devicesLocation,
